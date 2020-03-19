@@ -1,0 +1,23 @@
+h1 {
+    text-align: center;
+}
+p {
+    text-align: center;
+    font-family: 'Baloo Chettan 2', cursive;
+    font-size: xx-large;
+}
+.score {
+    color: royalblue;
+}
+.card {
+    height: 135px;
+    width: 115px;
+}
+#table {
+    margin-left: auto;
+    margin-right: auto;
+}
+tr td {
+    object-fit: cover;
+    padding: 7px;
+}
