@@ -46,18 +46,24 @@ function hideAll() {
 
 // to show card on click
 function openCard(e) {
-    openedCards.push(e.target.id);
+    console.log(openedCards);
     let id = e.target.id;
     e.target.src = "images/" + cardImages[id-1];
+    openedCards.push(e.target);
+    if(openedCards.length == 2) {
+        setTimeout(hideCard, 2000);
+    }
 }
 
 // to hide opened cards
 function hideCard(e) {
-    if(openedCards.length == 2 && openedCards[0] != openedCards[1]) {
-        let card = document.getElementById(openedCards[0]);
+    if(openedCards.length == 2 && openedCards[0].src != openedCards[1].src) {
+        let card = document.getElementById(openedCards[0].id);
         card.src = "images/blank.png";
-        card = document.getElementById(openedCards[1]);
+        card = document.getElementById(openedCards[1].id);
         card.src = "images/blank.png";
+        openedCards.pop();
+        openedCards.pop();
     }
 }
 
