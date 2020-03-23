@@ -37,7 +37,8 @@ function openCard(e) {
     let id = e.target.id;
     e.target.src = "images/" + cardImages[id-1];
     openedCards.push(e.target);
-    if(openedCards.length == 2) {
+    if(openedCards.length >= 2) {
+        disableAllCards();
         setTimeout(check, 1500);
     }
 }
@@ -65,6 +66,7 @@ function hideCard(e) {
     card.src = "images/blank.png";
     openedCards.pop();
     openedCards.pop();
+    enableAllCards();
 }
 
 // disable card after it's matched
@@ -76,6 +78,23 @@ function disableCard() {
     }
     openedCards.pop();
     openedCards.pop();
+    enableAllCards();
+}
+
+// disable all cards
+function disableAllCards() {
+    for(let i = 0; i < cardElements.length; i++) {
+        cardElements[i].removeEventListener("click", openCard);
+    }
+    console.warn("all cards disabled");
+}
+
+// enable all cards
+function enableAllCards() {
+    for(let i = 0; i < cardElements.length; i++) {
+        cardElements[i].addEventListener("click", openCard);
+    }
+    console.warn("all cards enabled");
 }
 
 // to show all cards
