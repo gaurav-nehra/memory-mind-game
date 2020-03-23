@@ -22,11 +22,7 @@ function start(e) {
         shuffle();
         setTimeout(hideAll, 800);
         showAll();
-        
-        for(let i = 0; i < cardElements.length; i++) {
-            cardElements[i].addEventListener("click", openCard);
-        }
-
+        enableAllCards();
     }
     else if(eventTarget.className == "reset-btn") {
         resetGame();
@@ -38,8 +34,6 @@ function start(e) {
 function openCard(e) {
     ++moveCount;    // number of moves made
     moves.innerText = moveCount;
-    console.log(openedCards);
-    console.log(matchedCards);
     let id = e.target.id;
     e.target.src = "images/" + cardImages[id-1];
     openedCards.push(e.target);
@@ -86,6 +80,10 @@ function disableCard() {
     openedCards.pop();
     ++matchedCardCount;     // number of matches
     score.innerText = matchedCardCount;
+    console.log(matchedCardCount);
+    if(matchedCardCount == 8) {
+        won();
+    }
     enableAllCards();
 }
 
@@ -102,7 +100,6 @@ function enableAllCards() {
     for(let i = 0; i < cardElements.length; i++) {
         cardElements[i].addEventListener("click", openCard);
     }
-    console.warn("all cards enabled");
 }
 
 // to show all cards
@@ -129,5 +126,22 @@ function shuffle() {
 
 // reset the game
 function resetGame() {
-    //TODO
+    disableAllCards();
+    shuffle();
+    setTimeout(hideAll, 800);
+    showAll();
+    moveCount = 0;
+    matchedCardCount = 0;
+    moves.innerText = moveCount;
+    score.innerText = matchedCardCount;
+    matchedCards = [];
+    openedCards = [];
+}
+
+function won() {
+    alert("Congratulations! You won in " + moveCount + " moves.");
+        let choice = confirm("Do you want to reset the game?");
+        if(choice == true) {
+            resetGame();
+        }
 }

@@ -1,5 +1,8 @@
 h1 {
     text-align: center;
+    font-family: 'Lobster', cursive;
+    font-size: 35px;
+    color: rgb(209, 32, 100);
 }
 p {
     text-align: center;
