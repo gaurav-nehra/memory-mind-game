@@ -32,6 +32,7 @@ function start(e) {
 
 // to show card on click
 function openCard(e) {
+    e.target.removeEventListener("click", openCard);
     ++moveCount;    // number of moves made
     moves.innerText = moveCount;
     let id = e.target.id;
@@ -80,7 +81,6 @@ function disableCard() {
     openedCards.pop();
     ++matchedCardCount;     // number of matches
     score.innerText = matchedCardCount;
-    console.log(matchedCardCount);
     if(matchedCardCount == 8) {
         won();
     }
@@ -92,13 +92,15 @@ function disableAllCards() {
     for(let i = 0; i < cardElements.length; i++) {
         cardElements[i].removeEventListener("click", openCard);
     }
-    console.warn("all cards disabled");
 }
 
 // enable all cards
 function enableAllCards() {
     for(let i = 0; i < cardElements.length; i++) {
-        cardElements[i].addEventListener("click", openCard);
+        let flag = matchedCards.includes(cardElements[i]);
+        if(flag == false) {
+            cardElements[i].addEventListener("click", openCard);
+        }
     }
 }
 
