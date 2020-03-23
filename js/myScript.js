@@ -30,6 +30,54 @@ function start(e) {
     }
 }
 
+// to show card on click
+function openCard(e) {
+    console.log(openedCards);
+    console.log(matchedCards);
+    let id = e.target.id;
+    e.target.src = "images/" + cardImages[id-1];
+    openedCards.push(e.target);
+    if(openedCards.length == 2) {
+        setTimeout(check, 1500);
+    }
+}
+
+// to check condition
+function check() {
+    if(openedCards.length == 2 && openedCards[0].src != openedCards[1].src) {
+        hideCard();
+    }
+    else if(openedCards.length == 2 && openedCards[0].src == openedCards[1].src) {
+        disableCard();
+    }
+    else if(openedCards.length > 2) {
+        for(let i = 0; i < openedCards.length; i++) {
+            openedCards.pop();
+        }
+    }
+}
+
+// to hide opened cards
+function hideCard(e) {
+    let card = document.getElementById(openedCards[0].id);
+    card.src = "images/blank.png";
+    card = document.getElementById(openedCards[1].id);
+    card.src = "images/blank.png";
+    openedCards.pop();
+    openedCards.pop();
+}
+
+// disable card after it's matched
+function disableCard() {
+    for(let i = 0; i < openedCards.length; i++) {
+        let card = document.getElementById(openedCards[i].id);
+        card.removeEventListener("click", openCard);
+        matchedCards.push(openedCards[i]);
+    }
+    openedCards.pop();
+    openedCards.pop();
+}
+
 // to show all cards
 function showAll() {
     for(let i = 0; i < cardElements.length; i++) {
@@ -41,39 +89,6 @@ function showAll() {
 function hideAll() {
     for(let i = 0; i < cardElements.length; i++) {
         cardElements[i].src = "images/blank.png";
-    }
-}
-
-// to show card on click
-function openCard(e) {
-    console.log(openedCards);
-    let id = e.target.id;
-    e.target.src = "images/" + cardImages[id-1];
-    openedCards.push(e.target);
-    if(openedCards.length == 2) {
-        setTimeout(hideCard, 2000);
-    }
-}
-
-// to hide opened cards
-function hideCard(e) {
-    if(openedCards.length == 2 && openedCards[0].src != openedCards[1].src) {
-        let card = document.getElementById(openedCards[0].id);
-        card.src = "images/blank.png";
-        card = document.getElementById(openedCards[1].id);
-        card.src = "images/blank.png";
-        openedCards.pop();
-        openedCards.pop();
-    }
-}
-
-// disable card after it's match
-function disableCard() {
-    if(openedCards.length == 2) {
-        for(let i = 0; i < openedCards.length; i++) {
-            let card = document.getElementById(openedCards[i]);
-            card.removeEventListener("click", openCard);
-        }
     }
 }
 
