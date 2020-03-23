@@ -5,8 +5,12 @@ const cardImages = ["angler-fish.png", "diamonds-smile.png", "missile-swarm.png"
                     "triton-head.png", "unlit-bomb.png"]
 ;
 let cardElements = document.getElementsByClassName("card");
+let score = document.getElementById("score");
+let moves = document.getElementById("moves");
 let openedCards = [];
 let matchedCards = [];
+let moveCount = 0;
+let matchedCardCount = 0;
 
 let btn = document.getElementById("btn");
 btn.addEventListener("click", start);
@@ -32,6 +36,8 @@ function start(e) {
 
 // to show card on click
 function openCard(e) {
+    ++moveCount;    // number of moves made
+    moves.innerText = moveCount;
     console.log(openedCards);
     console.log(matchedCards);
     let id = e.target.id;
@@ -78,6 +84,8 @@ function disableCard() {
     }
     openedCards.pop();
     openedCards.pop();
+    ++matchedCardCount;     // number of matches
+    score.innerText = matchedCardCount;
     enableAllCards();
 }
 
@@ -117,4 +125,9 @@ function shuffle() {
         let j = Math.floor(Math.random()*(i+1));
         [cardImages[i], cardImages[j]] = [cardImages[j], cardImages[i]];
     }
+}
+
+// reset the game
+function resetGame() {
+    //TODO
 }
