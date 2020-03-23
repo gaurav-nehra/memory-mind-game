@@ -21,3 +21,21 @@ tr td {
     object-fit: cover;
     padding: 7px;
 }
+.play-btn::after {
+    content: "\f04b";
+    font-family: "FontAwesome";
+    color: #15aabf;
+    transition: color .2s;
+}
+.reset-btn::after {
+    content: "\f01e";
+    font-family: "FontAwesome";
+    color: #15aabf;
+    transition: color .2s;
+}
+.play-btn:hover::after {
+    color: aqua;
+}
+.reset-btn:hover::after {
+    color: aqua;
+}

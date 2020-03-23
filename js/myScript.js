@@ -4,8 +4,31 @@ const cardImages = ["angler-fish.png", "diamonds-smile.png", "missile-swarm.png"
                     "missile-swarm.png", "rogue.png", "ship-wheel.png", "sword-spade.png", 
                     "triton-head.png", "unlit-bomb.png"]
 ;
+let cardElements = document.getElementsByClassName("card");
 let openedCards = [];
 let matchedCards = [];
+
+let btn = document.getElementById("btn");
+btn.addEventListener("click", start);
+
+function start(e) {
+    let eventTarget = e.target;
+    if(eventTarget.className == "play-btn") {
+        eventTarget.className = "reset-btn";
+        shuffle();
+        setTimeout(hideAll, 800);
+        showAll();
+        
+        for(let i = 0; i < cardElements.length; i++) {
+            cardElements[i].addEventListener("click", openCard);
+        }
+
+    }
+    else if(eventTarget.className == "reset-btn") {
+        resetGame();
+        eventTarget.className = "play-btn";
+    }
+}
 
 // to show all cards
 function showAll() {
@@ -20,14 +43,6 @@ function hideAll() {
         cardElements[i].src = "images/blank.png";
     }
 }
-shuffle();
-setTimeout(showAll, 3000);
-setTimeout(hideAll, 8000);
-
-let cardElements = document.getElementsByClassName("card");
-for(let i = 0; i < cardElements.length; i++) {
-    cardElements[i].addEventListener("click", openCard)
-}
 
 // to show card on click
 function openCard(e) {
@@ -39,14 +54,14 @@ function openCard(e) {
 // to hide opened cards
 function hideCard(e) {
     if(openedCards.length == 2 && openedCards[0] != openedCards[1]) {
-        let card = document.getElementById(matchedCards[0]);
+        let card = document.getElementById(openedCards[0]);
         card.src = "images/blank.png";
-        card = document.getElementById(matchedCards[1]);
+        card = document.getElementById(openedCards[1]);
         card.src = "images/blank.png";
     }
 }
 
-// disable card after match
+// disable card after it's match
 function disableCard() {
     if(openedCards.length == 2) {
         for(let i = 0; i < openedCards.length; i++) {
