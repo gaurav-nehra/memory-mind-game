@@ -42,8 +42,18 @@
     </table>
     <p id="btn" class="play-btn"></p>
     <p>Moves: <span id="moves" class="score"></span></p>
-    <p>Score: <span id="score" class="score"></span></p>
 
+    <div id="win-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close"><i class="fas fa-times"></i></span>
+            <p id="cong">Congratulations! You Won.</p>
+            <br>
+            <p>Number of Moves: <span id="final-moves" class="score"></span></p>
+            <p>Final Score: <span id="final-score" class="score"></span></p>
+            <br>
+            <button id="reset-modal">Reset</button>
+        </div>
+    </div>
     <script src="js/myScript.js"></script>
 </body>
 </html>

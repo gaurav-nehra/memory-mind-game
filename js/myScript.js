@@ -5,7 +5,6 @@ const cardImages = ["angler-fish.png", "diamonds-smile.png", "missile-swarm.png"
                     "triton-head.png", "unlit-bomb.png"]
 ;
 let cardElements = document.getElementsByClassName("card");
-let score = document.getElementById("score");
 let moves = document.getElementById("moves");
 let openedCards = [];
 let matchedCards = [];
@@ -80,8 +79,7 @@ function disableCard() {
     openedCards.pop();
     openedCards.pop();
     ++matchedCardCount;     // number of matches
-    score.innerText = matchedCardCount;
-    if(matchedCardCount == 8) {
+    if(matchedCardCount == 8 && matchedCards.length == 16) {
         won();
     }
     enableAllCards();
@@ -135,15 +133,39 @@ function resetGame() {
     moveCount = 0;
     matchedCardCount = 0;
     moves.innerText = moveCount;
-    score.innerText = matchedCardCount;
     matchedCards = [];
     openedCards = [];
 }
 
+// calculate final score
+function calcScore() {
+    return (matchedCardCount/moveCount)*200;
+}
+
 function won() {
-    alert("Congratulations! You won in " + moveCount + " moves.");
-        let choice = confirm("Do you want to reset the game?");
-        if(choice == true) {
-            resetGame();
+    let modal = document.getElementById("win-modal");
+    let close = document.getElementById("close");
+    let reset = document.getElementById("reset-modal");
+    
+    let score = calcScore();
+    document.getElementById("final-moves").innerText = moveCount;
+    document.getElementById("final-score").innerText = score.toPrecision(2);
+
+    // show modal
+    modal.style.display = "block";
+    // to reset game
+    reset.onclick = function() {
+        modal.style.display = "none";
+        resetGame();
+    }
+    // to close modal if user clicks on close
+    close.onclick = function() {
+        modal.style.display = "none";
+    }
+    // to close modal if user clickks outside modal
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
+    } 
 }
